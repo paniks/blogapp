@@ -3,13 +3,20 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+class PublishedManager(models.Manager):
+    '''Example of custom model manager. Filter QuerySet by column 'status' with value 'published' '''
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset()\
+                                            .filter(status='published')
+
+
 class Post(models.Model):
     STATUS_CHOICES = (('draft', 'Draft'),
                       ('published', 'Published'))
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,
-                            unique_for_date='published')
+                            unique_for_date='publish')
     author = models.ForeignKey(User,
                                related_name='blog_posts',
                                on_delete=models.CASCADE)
@@ -21,8 +28,11 @@ class Post(models.Model):
                               choices=STATUS_CHOICES,
                               default='draft')
 
+    objects = models.Manager()  # default manager
+    published = PublishedManager()  # custom manager
+
     class Meta:
-        ordering = ('-publish',)
+        ordering = ('-publish',)    # that's responds for sorting posts by publish date, minus means descending order
 
     def __str__(self):
         return self.title
