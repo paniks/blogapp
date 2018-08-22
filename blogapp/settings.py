@@ -119,3 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_HOST = 'local_host'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'admin@admin.com'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_USE_TLS = True
