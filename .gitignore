@@ -23,6 +23,7 @@ var/
 *.sqlite
 *.sqlite3
 db.*
+migrations/
 
 # Sphinx documentation
 docs/_build/
