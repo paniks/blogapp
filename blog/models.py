@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from taggit.managers import TaggableManager
 
 class PublishedManager(models.Manager):
     '''Example of custom model manager. Filter QuerySet by column 'status' with value 'published' '''
@@ -28,6 +28,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
+    tags = TaggableManager()
 
     objects = models.Manager()  # default manager
     published = PublishedManager()  # custom manager
